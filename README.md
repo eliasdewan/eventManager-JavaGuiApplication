@@ -1,0 +1,1 @@
+This project contains the EventManager Coursework as a NetBeans Project for K2056101
