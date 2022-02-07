@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ci5105202122k2056101.eventmanager.control;
-import ci5105202122k2056101.eventmanager.model.Event;
+package ci5105202122k2056101.eventmanager.model;
+
 /**
  *
  * @author k2056101
  */
-public class ConsoleControl {
+public class Organiser {
     
 }

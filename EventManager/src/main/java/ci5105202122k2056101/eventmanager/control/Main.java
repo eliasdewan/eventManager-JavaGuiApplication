@@ -4,10 +4,16 @@
  */
 package ci5105202122k2056101.eventmanager.control;
 
+import ci5105202122k2056101.eventmanager.model.Event;
+
 /**
  *
  * @author come1
  */
 public class Main {
-    
+
+    public static void main(String[] args) {
+        Event starting = new Event();
+    }
+
 }
