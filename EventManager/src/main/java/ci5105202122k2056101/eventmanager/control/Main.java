@@ -5,15 +5,18 @@
  */
 package ci5105202122k2056101.eventmanager.control;
 
-import ci5105202122k2056101.eventmanager.model.Event;
+import ci5105202122k2056101.eventmanager.model.*;
 
 /**
  *
  * @author k2056101
  */
-public class Access {
+public class Main {
 
     public static void main(String[] args) {
         Event starting = new Event();
+        Item smallbreak = new Item();
+        starting.addItem(smallbreak);
     }
+    
 }
