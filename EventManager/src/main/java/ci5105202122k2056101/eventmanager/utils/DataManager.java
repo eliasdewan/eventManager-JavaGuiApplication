@@ -9,6 +9,7 @@ package ci5105202122k2056101.eventmanager.utils;
  *
  * @author k2056101
  */
+
 public class DataManager {
     
 }
