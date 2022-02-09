@@ -5,10 +5,13 @@
  */
 package ci5105202122k2056101.eventmanager.view;
 
+import javax.swing.*;
+
 /**
  *
  * @author k2056101
  */
-public class GuiViewer {
+public class GuiViewer extends JFrame{
+    private JTextArea textArea;
     
 }

@@ -23,7 +23,6 @@ public class Main {
         starting.addItem(smallbreak);
         String name = starting.getOrganiser().getName();
         System.out.println(name);
-        System.out.println(name);
         
     }
     
