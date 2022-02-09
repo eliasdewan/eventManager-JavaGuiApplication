@@ -15,7 +15,9 @@ import ci5105202122k2056101.eventmanager.model.*;
 public class Main {
 
     public static void main(String[] args) {
+        Eventmanager prog = new Eventmanager();
         Event starting = new Event();
+        prog.addEventToEventManager(starting);
         Item smallbreak = new Item();
         Organiser me = new Organiser();
         me.setName("Elias");
@@ -23,6 +25,7 @@ public class Main {
         starting.addItem(smallbreak);
         String name = starting.getOrganiser().getName();
         System.out.println(name);
+        System.out.println(prog.eventInList(starting));
         
     }
     
