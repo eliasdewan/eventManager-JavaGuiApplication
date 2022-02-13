@@ -17,6 +17,8 @@ public class Item {
     private LocalTime itemStartTime;
 
     public Item() {
+        itemtitle="Not set";
+        itemStartTime= LocalTime.of(0, 0);
     }
 
     public Item(String itemtitle, LocalTime itemStartTime) {

@@ -20,10 +20,19 @@ import javax.swing.JButton;
  */
 public class Main {
 
+    /**
+     *
+     * @param args
+     *
+     * For Event manager requires initialize an event manager; Eventmanager prog
+     * = new Eventmanager(); // Like this
+     */
     public static void main(String[] args) {
-        //Objects creation
+        //Objects creation - testing initialization
         Eventmanager prog = new Eventmanager();
         System.out.println(prog.getClass());
+        //Creating event and  testing the add and remove methods
+        //From eventmanager Eventlist
         Event local = new Event();
         local.setTitle("First item");
         Event global = new Event();
@@ -34,6 +43,7 @@ public class Main {
         System.out.println(prog.eventInList(local));
         System.out.println(prog.removeEventFromManager(global));
 
+//Adding and removing item testing from eventmanager itemList
         Item localItem = new Item();
         Item globalItem = new Item();
         System.out.println(prog.addItemToManager(localItem));
@@ -42,27 +52,34 @@ public class Main {
         System.out.println(prog.removeItemFromManager(localItem));
         System.out.println(prog.itemInList(localItem));
         System.out.println(prog.removeItemFromManager(localItem));
-        
+
+        //Creating organiser for Association organiser
         Organiser me = new Organiser();
         Organiser you = new Organiser();
         System.out.println(prog.addEventToManager(local));
-        
+        //Associating event with organiser and testing
         System.out.println(local.setOrganiser(me));
         System.out.println(local.setOrganiser(me));
         System.out.println(local.setOrganiser(you));
         System.out.println(local.getOrganiser().equals(you));
-        
-        DataManager.fileToString("Eventmanager.csv");
-        DataManager.loadFromFile(prog);
-        
-        System.out.println(DataManager.listEventManager(prog));
-        
-        
-        
-        
-        
-        
-         
+
+        //Load From file 
+        //  DataManager.fileToString("Eventmanager.csv");//Convert from file to string in a parameter
+        // DataManager.loadFromString(prog); // Load and create all data when string is loaded
+        //System.out.println(DataManager.listEventManager(prog));//Printing all the data
+        //Add agenda item to Event
+        System.out.println(local.addIAgendatemToEvent(new Item("Break", "12:20")));
+        //Edit agenda items
+        local.setTitle("Complete event");
+        local.setDate("2022-05-15");
+        local.setTime("09:00");
+        local.setLocation("Outside Park ☠");
+        System.out.println(DataManager.listEvent(local));
+        //Saving file testing
+        //DataManager.loadToString(prog); // Load current data to the sting
+        //DataManager.printLoadedString();// Printing file format of all the data when its loaded
+        //DataManager.saveToFile("Eventmanager.csv");
+        //
         /*
         
         //Setting event Attributes

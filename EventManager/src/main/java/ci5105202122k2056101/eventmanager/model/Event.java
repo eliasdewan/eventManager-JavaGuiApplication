@@ -7,6 +7,7 @@ package ci5105202122k2056101.eventmanager.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,6 +29,9 @@ public class Event {
      */
     public Event() {
         agendaItem = new ArrayList();
+        time = LocalTime.of(0, 0);
+        date = LocalDate.of(2000, 1, 1);
+        location = "Not set";
 
     }
 
@@ -115,8 +119,8 @@ public class Event {
     public void setItems(ArrayList<Item> items) {
         this.agendaItem = items;
     }
-    
-    public String addItemToEvent(Item item) {
+
+    public String addIAgendatemToEvent(Item item) {
         if (this.agendaItem.contains(item)) {
             return "Already exist in list!";
         } else {
@@ -125,7 +129,7 @@ public class Event {
         }
     }
 
-    public String removeItemFromEvent(Item item) {
+    public String removeAgendaItemFromEvent(Item item) {
         if (this.agendaItem.contains(item)) {
             this.agendaItem.remove(item);
             return "Removed!";
