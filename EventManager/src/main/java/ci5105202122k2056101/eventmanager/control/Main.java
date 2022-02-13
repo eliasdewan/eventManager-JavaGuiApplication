@@ -29,6 +29,11 @@ public class Main {
         System.out.println(prog.addEventToManger(local));
         System.out.println(prog.addEventToManger(local));
         System.out.println(prog.eventInList(local));
+        System.out.println(prog.removeEventFtomManger(local));
+        System.out.println(prog.eventInList(local));
+        System.out.println(prog.removeEventFtomManger(global));
+        
+        
         
         /*
         Event starting = new Event();

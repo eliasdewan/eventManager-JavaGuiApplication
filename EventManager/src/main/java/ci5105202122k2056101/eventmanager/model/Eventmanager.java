@@ -53,5 +53,14 @@ public class Eventmanager {
             return "Added to the EventManager event list";
         }
     }
-    
+
+    public String removeEventFtomManger(Event event) {
+        if (this.eventInList(event)) {
+            this.eventList.remove(event);
+            return "Removed!";
+        } else {
+            return "Does not exist";
+        }
+    }
+
 }
