@@ -7,9 +7,10 @@ package ci5105202122k2056101.eventmanager.model;
 import java.util.ArrayList;
 
 /**
- *Added Array list for eventist and itemlist
- * Constructor that initializes the arrays
- *add to event manager and remove from event manager for both items and events
+ * Added Array list for eventList and itemList Constructor that initializes the
+ * arrays add to event manager and remove from event manager for both items and
+ * events
+ *
  * @author come1
  */
 public class Eventmanager {
@@ -21,26 +22,10 @@ public class Eventmanager {
         this.eventList = new ArrayList();
         this.itemList = new ArrayList();
     }
-    
+
     // Testing ----------------
-    public boolean eventInList(Event event){
+    public boolean eventInList(Event event) {
         return this.eventList.contains(event);
-                }
-
-    public void addEventToEventManager(Event event) {
-        this.eventList.add(event);
-    }
-
-    public void removeEventFromEventManager(Event event) {
-        this.eventList.remove(event);
-    }
-
-    public void addItemToEventManager(Item item) {
-        this.itemList.add(item);
-    }
-    
-    public void removeItemFromEventManager(Item item) {
-        this.itemList.remove(item);
     }
 
     //General getters and setters
@@ -60,7 +45,4 @@ public class Eventmanager {
         this.itemList = itemList;
     }
 
-    
-    
-    
 }

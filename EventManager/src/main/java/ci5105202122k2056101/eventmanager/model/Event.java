@@ -5,7 +5,10 @@
  */
 package ci5105202122k2056101.eventmanager.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -15,27 +18,27 @@ public class Event {
 
     private String title;
     private Organiser organiser;
-    private String time;
-    private String date;
+    private LocalTime time;
+    private LocalDate date;
     private String location;
-    private ArrayList<Item> items;
+    private ArrayList<Item> agendaItem;
 
-    public Event() {
-        items = new ArrayList();
-    }
-
-    public void addItem(Item item) {
-        this.items.add(item);
-
-//items = Arrays.copyOf(items, items.length);
-        // items[items.length - 1] = item;
-    }
-
-    public boolean removeItem(Item item) {
-        boolean remove = this.items.remove(item);
-        return remove;
+    /**
+     * Constructor 
+     * Initializes agendaItem List
+     */
+    public Event() { 
+        agendaItem = new ArrayList();
     }
     
+    public ArrayList<Item> getAgendaItem() {
+        return agendaItem;
+    }
+
+    public void setAgendaItem(ArrayList<Item> agendaItem) {
+        this.agendaItem = agendaItem;
+    }
+
     // General getters and setters
     public String getTitle() {
         return title;
@@ -53,20 +56,29 @@ public class Event {
         this.organiser = organiser;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    //String set time and date
+    public void setTime(String time) {
+        this.time = LocalTime.parse(time);
+    }
+
+    public void setDate(String date) {
+        this.date = LocalDate.parse(date);
     }
 
     public String getLocation() {
@@ -78,12 +90,11 @@ public class Event {
     }
 
     public ArrayList<Item> getItems() {
-        return items;
+        return agendaItem;
     }
 
     public void setItems(ArrayList<Item> items) {
-        this.items = items;
+        this.agendaItem = items;
     }
-    
-    
+
 }

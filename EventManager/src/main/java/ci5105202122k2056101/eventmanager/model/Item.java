@@ -5,6 +5,8 @@
  */
 package ci5105202122k2056101.eventmanager.model;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author k2056101
@@ -12,19 +14,22 @@ package ci5105202122k2056101.eventmanager.model;
 public class Item {
 
     private String itemtitle;
-    private String itemStartTime;
+    private LocalTime itemStartTime;
 
     public Item() {
-        this.itemStartTime="";
-        this.itemStartTime="";
     }
-    public Item(String itemtitle, String itemStartTime) {
+
+    public Item(String itemtitle, LocalTime itemStartTime) {
         this.itemtitle = itemtitle;
         this.itemStartTime = itemStartTime;
     }
-    
-    // General getter and setters
 
+    public Item(String itemtitle, String itemStartTime) {
+        this.itemtitle = itemtitle;
+        this.itemStartTime = LocalTime.parse(itemStartTime);
+    }
+
+    // General getter and setters
     public String getItemtitle() {
         return itemtitle;
     }
@@ -32,13 +37,18 @@ public class Item {
     public void setItemtitle(String itemtitle) {
         this.itemtitle = itemtitle;
     }
-
-    public String getItemStartTime() {
+    
+    //Local time methods
+    public LocalTime getItemStartTime() {
         return itemStartTime;
     }
 
     public void setItemStartTime(String itemStartTime) {
+        this.itemStartTime = LocalTime.parse(itemStartTime);
+    }
+
+    public void setItemStartTime(LocalTime itemStartTime) {
         this.itemStartTime = itemStartTime;
     }
-    
+
 }

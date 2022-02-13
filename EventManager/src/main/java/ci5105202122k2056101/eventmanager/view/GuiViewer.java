@@ -13,5 +13,10 @@ import javax.swing.*;
  */
 public class GuiViewer extends JFrame{
     private JTextArea textArea;
+    public void view() {
+        this.setSize(500,500);
+        this.setVisible(rootPaneCheckingEnabled);
+        
+    }
     
 }
