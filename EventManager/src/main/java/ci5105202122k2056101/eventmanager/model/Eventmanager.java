@@ -27,6 +27,7 @@ public class Eventmanager {
     public boolean eventInList(Event event) {
         return this.eventList.contains(event);
     }
+
     public boolean itemInList(Item item) {
         return this.itemList.contains(item);
     }
@@ -48,7 +49,7 @@ public class Eventmanager {
         this.itemList = itemList;
     }
 
-    public String addEventToManger(Event event) {
+    public String addEventToManager(Event event) {
         if (this.eventInList(event)) {
             return "Already exist in list!";
         } else {
@@ -57,7 +58,7 @@ public class Eventmanager {
         }
     }
 
-    public String removeEventFromManger(Event event) {
+    public String removeEventFromManager(Event event) {
         if (this.eventInList(event)) {
             this.eventList.remove(event);
             return "Removed!";
@@ -65,13 +66,22 @@ public class Eventmanager {
             return "Does not exist";
         }
     }
-    
-    public String addItemToManger(Item item) {
+
+    public String addItemToManager(Item item) {
         if (this.itemInList(item)) {
             return "Already exist in list!";
         } else {
             this.itemList.add(item);
             return "Added to the EventManager item list";
+        }
+    }
+
+    public String removeItemFromManager(Item item) {
+        if (this.itemInList(item)) {
+            this.itemList.remove(item);
+            return "Removed!";
+        } else {
+            return "Does not exist";
         }
     }
 

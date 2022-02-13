@@ -24,13 +24,12 @@ public class Event {
     private ArrayList<Item> agendaItem;
 
     /**
-     * Constructor 
-     * Initializes agendaItem List
+     * Constructor Initializes agendaItem List
      */
-    public Event() { 
+    public Event() {
         agendaItem = new ArrayList();
     }
-    
+
     public ArrayList<Item> getAgendaItem() {
         return agendaItem;
     }
@@ -52,8 +51,16 @@ public class Event {
         return organiser;
     }
 
-    public void setOrganiser(Organiser organiser) {
-        this.organiser = organiser;
+    public String setOrganiser(Organiser organiser) {
+        if (organiser == this.organiser) {
+            return "Already set";
+        } else if (this.organiser != null) {
+            this.organiser = organiser;
+            return "Replaced set organiser";
+        } else {
+            this.organiser = organiser;
+            return "Set successful";
+        }
     }
 
     public LocalTime getTime() {

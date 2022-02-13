@@ -26,28 +26,35 @@ public class Main {
         System.out.println(prog.getClass());
         Event local = new Event();
         Event global = new Event();
-        System.out.println(prog.addEventToManger(local));
-        System.out.println(prog.addEventToManger(local));
+        System.out.println(prog.addEventToManager(local));
+        System.out.println(prog.addEventToManager(local));
         System.out.println(prog.eventInList(local));
-        System.out.println(prog.removeEventFromManger(local));
+        System.out.println(prog.removeEventFromManager(local));
         System.out.println(prog.eventInList(local));
-        System.out.println(prog.removeEventFromManger(global));
+        System.out.println(prog.removeEventFromManager(global));
 
         Item localItem = new Item();
         Item globalItem = new Item();
-        System.out.println(prog.addItemToManger(localItem));
-        System.out.println(prog.addItemToManger(localItem));
+        System.out.println(prog.addItemToManager(localItem));
+        System.out.println(prog.addItemToManager(localItem));
         System.out.println(prog.itemInList(localItem));
-       // System.out.println(prog.removeItemFtomManger(localItem));
-        //System.out.println(prog.itemInList(localItem));
-        //System.out.println(prog.removeItemFtomManger(localItem));
-
-        /*
-        Event starting = new Event();
+        System.out.println(prog.removeItemFromManager(localItem));
+        System.out.println(prog.itemInList(localItem));
+        System.out.println(prog.removeItemFromManager(localItem));
+        
         Organiser me = new Organiser();
-        Item smallbreak = new Item();
-        Item generic = new Item("generic","05:13");
-        prog.getItemList().add(generic);
+        Organiser you = new Organiser();
+        System.out.println(prog.addEventToManager(local));
+        
+        System.out.println(local.setOrganiser(me));
+        System.out.println(local.setOrganiser(me));
+        System.out.println(local.setOrganiser(you));
+        System.out.println(local.getOrganiser().equals(you));
+        
+        
+         
+        /*
+        
         //Setting event Attributes
         starting.setTitle("Starting");
         starting.setOrganiser(me);
