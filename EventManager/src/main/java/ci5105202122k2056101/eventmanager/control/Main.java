@@ -69,7 +69,7 @@ public class Main {
         //System.out.println(DataManager.listEventManager(prog));//Printing all the data
         //Add agenda item to Event
         System.out.println(local.addIAgendatemToEvent(new Item("Break", "12:20")));
-        //Edit agenda items
+        //Edit agenda items with view
         local.setTitle("Complete event");
         local.setDate("2022-05-15");
         local.setTime("09:00");
