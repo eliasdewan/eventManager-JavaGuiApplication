@@ -24,6 +24,11 @@ public class Main {
         //Objects creation
         Eventmanager prog = new Eventmanager();
         System.out.println(prog.getClass());
+        Event local = new Event();
+        Event global = new Event();
+        System.out.println(prog.addEventToManger(local));
+        System.out.println(prog.addEventToManger(local));
+        System.out.println(prog.eventInList(local));
         
         /*
         Event starting = new Event();

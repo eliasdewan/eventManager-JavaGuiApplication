@@ -45,4 +45,13 @@ public class Eventmanager {
         this.itemList = itemList;
     }
 
+    public String addEventToManger(Event event) {
+        if (this.eventInList(event)) {
+            return "Already exist in list!";
+        } else {
+            this.eventList.add(event);
+            return "Added to the EventManager event list";
+        }
+    }
+    
 }
