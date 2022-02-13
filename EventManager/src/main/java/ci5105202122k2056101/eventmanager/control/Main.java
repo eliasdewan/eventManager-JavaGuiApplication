@@ -23,6 +23,7 @@ public class Main {
     public static void main(String[] args) {
         //Objects creation
         Eventmanager prog = new Eventmanager();
+        System.out.println(prog.getClass());
         
         /*
         Event starting = new Event();
