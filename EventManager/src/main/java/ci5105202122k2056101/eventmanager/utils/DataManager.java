@@ -45,11 +45,13 @@ public class DataManager {
 
     /**
      *
-     * @param file Reads file and stores as string in loadedString
+     * @param fileName is String location of csv
+     * This loads every thing into a static String loadedString
+     * 
      */
-    public static void fileToString() {
+    public static void fileToString(String fileName) {
         try {
-            File file = new File("Eventmanager.csv");
+            File file = new File(fileName);
             loadedString = "";
             BufferedReader bufread = new BufferedReader(new FileReader(file));
             while (bufread.ready()) {
@@ -65,6 +67,13 @@ public class DataManager {
         }
     }
 
+    /**
+     *Uses the static string loadedString
+     * @param evm
+     * Goes through the String file line by line creating object
+     * First splitting into lines then looping split comma of each line to identify 
+     * what it should create
+     */
     public static void loadFromFile(Eventmanager evm) {
         int locator = 0; // For adding item to manager or event
         String[] splitLoadedString = loadedString.split(System.lineSeparator());

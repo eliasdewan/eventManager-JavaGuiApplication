@@ -52,7 +52,7 @@ public class Main {
         System.out.println(local.setOrganiser(you));
         System.out.println(local.getOrganiser().equals(you));
         
-        DataManager.fileToString();
+        DataManager.fileToString("Eventmanager.csv");
         DataManager.loadFromFile(prog);
         
         System.out.println(DataManager.listEventManager(prog));
