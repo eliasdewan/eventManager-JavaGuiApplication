@@ -28,6 +28,15 @@ public class Event {
      */
     public Event() {
         agendaItem = new ArrayList();
+
+    }
+
+    public Event(String title, String time, String date, String location) {
+        this.title = title;
+        this.setTime(time);
+        this.setDate(date);
+        this.location = location;
+        agendaItem = new ArrayList();
     }
 
     public ArrayList<Item> getAgendaItem() {
@@ -48,6 +57,9 @@ public class Event {
     }
 
     public Organiser getOrganiser() {
+        if (organiser == null) {
+            return new Organiser();
+        }
         return organiser;
     }
 
@@ -102,6 +114,24 @@ public class Event {
 
     public void setItems(ArrayList<Item> items) {
         this.agendaItem = items;
+    }
+    
+    public String addItemToEvent(Item item) {
+        if (this.agendaItem.contains(item)) {
+            return "Already exist in list!";
+        } else {
+            this.agendaItem.add(item);
+            return "Added to the Agenda item list";
+        }
+    }
+
+    public String removeItemFromEvent(Item item) {
+        if (this.agendaItem.contains(item)) {
+            this.agendaItem.remove(item);
+            return "Removed!";
+        } else {
+            return "Does not exist";
+        }
     }
 
 }

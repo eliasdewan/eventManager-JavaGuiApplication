@@ -23,6 +23,12 @@ public class Eventmanager {
         this.itemList = new ArrayList();
     }
 
+    public Eventmanager(ArrayList<Event> eventList, ArrayList<Item> itemList) {
+        this.eventList = eventList;
+        this.itemList = itemList;
+    }
+    
+
     // Testing ----------------
     public boolean eventInList(Event event) {
         return this.eventList.contains(event);

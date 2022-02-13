@@ -25,6 +25,7 @@ public class Main {
         Eventmanager prog = new Eventmanager();
         System.out.println(prog.getClass());
         Event local = new Event();
+        local.setTitle("First item");
         Event global = new Event();
         System.out.println(prog.addEventToManager(local));
         System.out.println(prog.addEventToManager(local));
@@ -50,6 +51,15 @@ public class Main {
         System.out.println(local.setOrganiser(me));
         System.out.println(local.setOrganiser(you));
         System.out.println(local.getOrganiser().equals(you));
+        
+        DataManager.fileToString();
+        DataManager.loadFromFile(prog);
+        
+        System.out.println(DataManager.listEventManager(prog));
+        
+        
+        
+        
         
         
          
