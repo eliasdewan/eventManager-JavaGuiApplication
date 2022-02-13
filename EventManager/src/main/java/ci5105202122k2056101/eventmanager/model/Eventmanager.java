@@ -27,6 +27,9 @@ public class Eventmanager {
     public boolean eventInList(Event event) {
         return this.eventList.contains(event);
     }
+    public boolean itemInList(Item item) {
+        return this.itemList.contains(item);
+    }
 
     //General getters and setters
     public ArrayList<Event> getEventList() {
@@ -54,12 +57,21 @@ public class Eventmanager {
         }
     }
 
-    public String removeEventFtomManger(Event event) {
+    public String removeEventFromManger(Event event) {
         if (this.eventInList(event)) {
             this.eventList.remove(event);
             return "Removed!";
         } else {
             return "Does not exist";
+        }
+    }
+    
+    public String addItemToManger(Item item) {
+        if (this.itemInList(item)) {
+            return "Already exist in list!";
+        } else {
+            this.itemList.add(item);
+            return "Added to the EventManager item list";
         }
     }
 

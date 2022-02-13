@@ -29,12 +29,19 @@ public class Main {
         System.out.println(prog.addEventToManger(local));
         System.out.println(prog.addEventToManger(local));
         System.out.println(prog.eventInList(local));
-        System.out.println(prog.removeEventFtomManger(local));
+        System.out.println(prog.removeEventFromManger(local));
         System.out.println(prog.eventInList(local));
-        System.out.println(prog.removeEventFtomManger(global));
-        
-        
-        
+        System.out.println(prog.removeEventFromManger(global));
+
+        Item localItem = new Item();
+        Item globalItem = new Item();
+        System.out.println(prog.addItemToManger(localItem));
+        System.out.println(prog.addItemToManger(localItem));
+        System.out.println(prog.itemInList(localItem));
+       // System.out.println(prog.removeItemFtomManger(localItem));
+        //System.out.println(prog.itemInList(localItem));
+        //System.out.println(prog.removeItemFtomManger(localItem));
+
         /*
         Event starting = new Event();
         Organiser me = new Organiser();
@@ -48,17 +55,13 @@ public class Main {
         starting.setDate("2020-12-25");
         /*starting.setTime(LocalTime.of(12, 12));
         starting.setDate(LocalDate.of(2010, 12, 15));*/
-       /* starting.setLocation("Here");
+ /* starting.setLocation("Here");
         prog.getEventList().add(starting);
         //Setting organiser attributes
         me.setName("Elias");
         System.out.println(DataManager.listEventManager(prog));
-        */
-
-        
+         */
         //starting.addItem(smallbreak);
-        
-        
         //String name = starting.getOrganiser().getName();
         //System.out.println(name);
         // System.out.println(prog.eventInList(starting));
