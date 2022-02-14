@@ -75,11 +75,11 @@ public class Main {
         local.setTime("09:00");
         local.setLocation("Outside Park ☠");
         System.out.println(DataManager.listEvent(local));
-        
+
 //Saving file testing
-        DataManager.loadToString(prog); // Load current data to the sting
+        // DataManager.loadToString(prog); // Load current data to the sting
         //DataManager.printLoadedString();// Printing file format of all the data when its loaded
-        DataManager.saveToFile("Eventmanager.csv");
+        //DataManager.saveToFile("Eventmanager.csv");
         //
         /*
         
@@ -102,11 +102,8 @@ public class Main {
         // System.out.println(prog.eventInList(starting));
 
         /*GUI TESTING
-        GuiViewer view = new GuiViewer();
-        GUIControl controls = new GUIControl();
-        view.setLayout(new BorderLayout());
-        view.add(GUIControl.getLoad(),BorderLayout.CENTER);
-        view.view();*/
+        */
+        GuiViewer.GuiViewerStart();
     }
 
 }

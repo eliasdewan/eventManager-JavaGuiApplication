@@ -23,7 +23,22 @@ import java.io.IOException;
 public class DataManager {
 
     static String loadedString = "";
+    static Eventmanager prog;
 
+    public DataManager() {
+    }
+    
+    
+    
+    //As a datamanager it should hold all data in this case eventmanager encapsulates all
+    public static Eventmanager getProg() {
+        return prog;
+    }
+
+    public static void setProg(Eventmanager prog) {
+        DataManager.prog = prog;
+    }
+    
     public static void printLoadedString() {
         System.out.println("Starts here");
         System.out.println(loadedString);
@@ -58,8 +73,7 @@ public class DataManager {
     /**
      *
      * @param event
-     * @return event data in astring
-     * for agendaitem list goes in a loop
+     * @return event data in astring for agendaitem list goes in a loop
      */
     public static String listEvent(Event event) {
         String text = "";
@@ -159,6 +173,9 @@ public class DataManager {
     public static void saveToFile(String fileName) {
         try {
             File file = new File(fileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             BufferedWriter bufwrite = new BufferedWriter(new FileWriter(file));
             bufwrite.write(loadedString);
             bufwrite.newLine();
