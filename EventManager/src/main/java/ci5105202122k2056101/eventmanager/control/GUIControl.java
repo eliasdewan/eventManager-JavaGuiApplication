@@ -19,10 +19,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class GUIControl implements ActionListener {
 
-    private static JButton load = new JButton("Load");
-    private static JButton view = new JButton("View");
-    private static JButton save = new JButton("Save");
-    private static JButton add = new JButton("Add");
     private static JMenuBar mb = new JMenuBar();
     private static JMenu file = new JMenu("File");
     private static JMenuItem exit = new JMenuItem("Exit");
@@ -31,26 +27,12 @@ public class GUIControl implements ActionListener {
     private static JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
 
     public void actionForButtons() {//Adding listener to all buttons
-        load.addActionListener(this);
-        save.addActionListener(this);
-        add.addActionListener(this);
+
         file.addActionListener(this);
         loadFile.addActionListener(this);
         saveFile.addActionListener(this);
         exit.addActionListener(this);
-        view.addActionListener(this);
-    }
 
-    public static JButton getLoad() {
-        return load;
-    }
-
-    public static JButton getSave() {
-        return save;
-    }
-
-    public static JButton getAdd() {
-        return add;
     }
 
     public static JMenuBar getMb() {
@@ -63,10 +45,6 @@ public class GUIControl implements ActionListener {
 
     public static JMenu getFile() {
         return file;
-    }
-
-    public static JButton getView() {
-        return view;
     }
 
     public static JMenuItem getLoadFile() {
@@ -99,16 +77,37 @@ public class GUIControl implements ActionListener {
                 DataManager.loadToString(DataManager.getEventManager()); //Requires data manager - loads in string
                 DataManager.saveToFile(file.getAbsolutePath()); // Saves to file selected if file not exist will create
             }
+        } else if (e.getActionCommand().contains("View")) {
+            System.out.println("Clicked view");
+            //System.out.println("Given substing:"+e.getActionCommand().substring(4));
+            //System.out.println("Given replaced:"+e.getActionCommand().replace("View", ""));
+            int n = Integer.valueOf(e.getActionCommand().replace("View", ""));
+
+            //System.out.println("Got this number:"+n);
+            System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
+            GuiViewer.viewEvent(DataManager.getEventManager().getEventList().get(n));
+
+        } 
+         else if (e.getActionCommand().contains("Edit")) {
+            System.out.println("Clicked edit");
+            //System.out.println("Given replaced:"+e.getActionCommand().replace("View", ""));
+            int n = Integer.valueOf(e.getActionCommand().replace("Edit", ""));
+
+            //System.out.println("Got this number:"+n);
+            //System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
+            GuiViewer.editEventForm(DataManager.getEventManager().getEventList().get(n));
+
         } 
         
-        else if (e.getActionCommand().equals("View")) {
-            System.out.println("Clicked view");
-        }
-        else if (e.getActionCommand().equals("Add")) {
+        
+        
+        
+        
+        else if (e.getActionCommand().equals("Add Event")) {
             System.out.println("Clicked add");
-            GuiViewer.addEventForm();
-        }
-        else if (e.getActionCommand().equals("Exit")) {
+            GuiViewer.addEventForm(); 
+            
+        } else if (e.getActionCommand().equals("Exit")) {
             System.exit(0);
         }
     }
