@@ -51,12 +51,24 @@ public class DataManager {
     public static String listEventManager(Eventmanager prog) {
         String text = "";
         for (Item item : prog.getItemList()) {
-            text += item.getItemtitle() + System.lineSeparator();
-            text += item.getItemStartTime() + System.lineSeparator();
+            text +=DataManager.listItem(item);
         }
         for (Event event : prog.getEventList()) {
             text += DataManager.listEvent(event);
         }
+        return text;
+    }
+
+    /**
+     *
+     * @param prog
+     * @return only event items
+     */
+    public static String listItem(Item item) {
+        String text = "";
+            text += "iTEM Title : " + item.getItemtitle() + System.lineSeparator();
+            text += "Start Time : " + item.getItemStartTime() + System.lineSeparator();
+        
         return text;
     }
 
@@ -67,14 +79,14 @@ public class DataManager {
      */
     public static String listEvent(Event event) {
         String text = "";
-        text += event.getTitle() + System.lineSeparator();
-        text += event.getOrganiser().getName() + System.lineSeparator();
-        text += event.getTime() + System.lineSeparator();
-        text += event.getDate() + System.lineSeparator();
-        text += event.getLocation() + System.lineSeparator();
+        text += "Event Title : " + event.getTitle() + System.lineSeparator();
+        text += "Organiser : " + event.getOrganiser().getName() + System.lineSeparator();
+        text += "Time : " + event.getTime() + System.lineSeparator();
+        text += "Date : " + event.getDate() + System.lineSeparator();
+        text += "Location : " + event.getLocation() + System.lineSeparator();
         for (Item item : event.getItems()) {
-            text += item.getItemtitle() + System.lineSeparator();
-            text += item.getItemStartTime() + System.lineSeparator();
+            text += "Item Title : " + item.getItemtitle() + System.lineSeparator();
+            text += "Time : " + item.getItemStartTime() + System.lineSeparator();
         }
         return text;
     }

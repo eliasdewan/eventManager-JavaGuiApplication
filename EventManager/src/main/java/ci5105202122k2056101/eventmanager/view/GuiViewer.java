@@ -7,8 +7,14 @@ package ci5105202122k2056101.eventmanager.view;
 
 import ci5105202122k2056101.eventmanager.control.GUIControl;
 import ci5105202122k2056101.eventmanager.model.Event;
+import ci5105202122k2056101.eventmanager.model.Item;
 import ci5105202122k2056101.eventmanager.utils.DataManager;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import javax.swing.*;
 
 /**
@@ -20,7 +26,7 @@ public class GuiViewer extends JFrame {
     // private JTextArea textArea = new JTextArea();
     private JMenuBar menubar;
     private static GuiViewer start;
-    private static JPanel eventPanel = new JPanel(new BorderLayout());
+    private static ScrollPane mainPane = new ScrollPane();//Main scrollable area
 
     public void view() { // Make viewer visible and size 500 -500
         this.setSize(500, 500);
@@ -28,27 +34,93 @@ public class GuiViewer extends JFrame {
         this.setVisible(rootPaneCheckingEnabled);
     }
 
-    public static void updateView() {
-        eventPanel.removeAll();
-        System.out.println("Triggered update view");
-        int n = 0;// For button action
-        for (Event event : DataManager.getEventManager().getEventList()) {
-            eventPanel.add(new JTextArea(DataManager.listEvent(event)), BorderLayout.CENTER);
-            eventPanel.add(GUIControl.getView(), BorderLayout.WEST);
-            eventPanel.add(new JTextArea(DataManager.listEvent(event)), BorderLayout.EAST);
+    //JFrame-->mainPane-->eventList-->buttonPanel,view,textarea
+    public static void updateView() {//======================================
+        mainPane.removeAll();
+        start.add(GUIControl.getAdd(), BorderLayout.NORTH);
+        JPanel eventList = new JPanel(new GridLayout(0, 1));// List of events
+        eventList.setPreferredSize(new Dimension(450, 100));
+        JPanel buttonPanel = new JPanel(new GridLayout(0, 1));// Panel for east side buttons
+        //BoxLayout box = new BoxLayout(buttonPanel, BoxLayout.Y_AXIS);
+        JPanel eventPanel = new JPanel(new BorderLayout()); // // Panel new  
+        JPanel eventData = new JPanel(new GridLayout(0, 1)); // // Panel new  
+        JPanel viewButton = new JPanel(new GridLayout(0, 1)); // // Panel new  
+
+        int en = 0;// For button action
+        int in = 0;
+
+        for (Item item : DataManager.getEventManager().getItemList()) {
+            viewButton.add(new JLabel("Item"));
+            JTextArea text = new JTextArea(DataManager.listItem(item));
+            text.setPreferredSize(new Dimension(300, 100));
+            eventData.add(text);
+            eventPanel.add(viewButton, BorderLayout.WEST);
+            eventPanel.add(eventData, BorderLayout.CENTER);
+            eventPanel.add(buttonPanel, BorderLayout.EAST);
+
+            buttonPanel.add(new JButton("Edit"));
+            buttonPanel.add(new JButton("Delete"));
+            in++;
+            eventList.add(eventPanel);
         }
-        
-        start.add(eventPanel);
-        SwingUtilities.updateComponentTreeUI(start);
+
+        for (Event event : DataManager.getEventManager().getEventList()) {//    LOOP
+            viewButton.add(new JButton("View"));
+            JTextArea text = new JTextArea(DataManager.listEvent(event));
+            text.setPreferredSize(new Dimension(300, 100));
+            eventData.add(text);
+            eventPanel.add(viewButton, BorderLayout.WEST);
+            eventPanel.add(eventData, BorderLayout.CENTER);
+            eventPanel.add(buttonPanel, BorderLayout.EAST);
+            buttonPanel.add(new JButton("Edit"));
+            buttonPanel.add(new JButton("Delete"));
+            en++;
+            eventList.add(eventPanel);
+        }
+
+        System.out.println(en + " Times looped"); // niber counter XXXXXXXX REMOVE LATER
+
+        //Main elements and containers
+        //Adding the panelcreated
+        mainPane.add(eventList);//Add the list at the end to the scroll pane
+        start.add(mainPane, BorderLayout.CENTER);// For updating its at the end
+        SwingUtilities.updateComponentTreeUI(start); // uPDATE WINDOW
         //start.update(start.getGraphics());// ----Works but slow
 
+    }//-------------------------------------------------
+
+
+    public static void addEventForm() {
+        JDialog addWindow = new JDialog();
+        addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel form = new JPanel(new GridLayout(0, 2));
+        addWindow.add(form);
+
+        JTextField Time = new JTextField(15);
+        JTextField Date = new JTextField(15);
+        JTextField Location = new JTextField(15);
+        JTextField EventTitle = new JTextField(15);
+        
+        form.add(new JLabel("Event Title"));
+        form.add(EventTitle);
+        form.add(new JLabel("Event Time HH:FF Fornat"));
+        form.add(Time);
+        form.add(new JLabel("Event Date YYYY-MM-DD Format"));
+        form.add(Date);
+        form.add(new JLabel("Event Location"));
+        form.add(Location);
+        form.add(new JButton("Cancel"));
+        form.add(GUIControl.getAdd());
+
+        addWindow.setSize(400, 400);
+        addWindow.setVisible(true);
     }
 
-    public void viewData() {
-
-    }
-
+    public void 
+    
+    
     public void viewMenuBar() { //Add menubar to viewer with file (Load and save) and exit
+
         GUIControl controls = new GUIControl();
         menubar = GUIControl.getMb();
         this.setJMenuBar(menubar);
@@ -61,12 +133,14 @@ public class GuiViewer extends JFrame {
 
     public static void GuiViewerStart() { //Start point of gui
         start = new GuiViewer(); // New gui viewer
+        start.setLayout(new BorderLayout()); // New gui viewer      
         GUIControl controls = new GUIControl();//New gui control element
         controls.actionForButtons(); // Assign action listener
         start.viewMenuBar();// Jmenubar add to view
-        //GuiViewer.updateView();
-        //start.updateView();// Loading the content into the panel ----------
-        start.view();//make frame visible
+        start.viewMenuBar();
+        GuiViewer.updateView();
+        start.view();
+        //make frame visible
 
     }
 }
