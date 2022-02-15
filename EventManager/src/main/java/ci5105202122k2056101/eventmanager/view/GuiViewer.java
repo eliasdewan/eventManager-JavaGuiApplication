@@ -45,6 +45,9 @@ public class GuiViewer extends JFrame {
         JButton add = new JButton("Add Event");
         add.addActionListener(controls);
         start.add(add, BorderLayout.NORTH);
+        JButton addItem = new JButton("Add Item");
+        addItem.addActionListener(controls);
+        start.add(addItem, BorderLayout.SOUTH);
         JPanel eventList = new JPanel(new GridLayout(0, 1));// List of events
         eventList.setPreferredSize(new Dimension(450, 100));
         JPanel buttonPanel = new JPanel(new GridLayout(0, 1));// Panel for east side buttons
@@ -140,9 +143,6 @@ public class GuiViewer extends JFrame {
         JTextField Location = new JTextField("Not set", 15);
         JTextField EventTitle = new JTextField("Not set", 15);
 
-        
-        
-        
         form.add(new JLabel("Event Title"));
         form.add(EventTitle);
         form.add(new JLabel("Event Time HH:FF Fornat"));
@@ -152,16 +152,29 @@ public class GuiViewer extends JFrame {
         form.add(new JLabel("Event Location"));
         form.add(Location);
         form.add(new JButton("Cancel"));
+        
+        ActionListener window;
+        window = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                DataManager.getEventManager().addEventToManager(new Event (EventTitle.getText(),Time.getText(),Date.getText(),Location.getText()));
+                GuiViewer.updateView();
+                
+                
+                
+                }
+        };
+        
         JButton add = new JButton("Add");//Added button add
-        add.addActionListener(controls);
+        add.addActionListener(window);
         form.add(add);
         
         
         
-     
-       
-    
-
+        
+        
+        
         addWindow.setSize(400, 400);
         addWindow.setVisible(true);
     }
