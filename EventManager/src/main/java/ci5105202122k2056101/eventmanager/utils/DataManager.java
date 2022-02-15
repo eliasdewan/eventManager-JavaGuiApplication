@@ -66,7 +66,7 @@ public class DataManager {
      */
     public static String listItem(Item item) {
         String text = "";
-            text += "iTEM Title : " + item.getItemtitle() + System.lineSeparator();
+            text += "Item Title : " + item.getItemtitle() + System.lineSeparator();
             text += "Start Time : " + item.getItemStartTime() + System.lineSeparator();
         
         return text;
