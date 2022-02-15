@@ -87,8 +87,7 @@ public class GUIControl implements ActionListener {
             System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
             GuiViewer.viewEvent(DataManager.getEventManager().getEventList().get(n));
 
-        } 
-         else if (e.getActionCommand().contains("Edit")) {
+        } else if (e.getActionCommand().contains("Edit")) {
             System.out.println("Clicked edit");
             //System.out.println("Given replaced:"+e.getActionCommand().replace("View", ""));
             int n = Integer.valueOf(e.getActionCommand().replace("Edit", ""));
@@ -97,16 +96,24 @@ public class GUIControl implements ActionListener {
             //System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
             GuiViewer.editEventForm(DataManager.getEventManager().getEventList().get(n));
 
-        } 
-        
-        
-        
-        
-        
-        else if (e.getActionCommand().equals("Add Event")) {
+        } else if (e.getActionCommand().equals("Add Event")) {
             System.out.println("Clicked add");
-            GuiViewer.addEventForm(); 
-            
+            GuiViewer.addEventForm();
+
+        } else if (e.getActionCommand().equals("Add")) {
+            System.out.println("Clicked add ftom creating event");
+
+        } else if (e.getActionCommand().contains("Delete")) {
+            System.out.println("Clicked delete event");
+            int n = Integer.valueOf(e.getActionCommand().replace("Delete", ""));
+            DataManager.getEventManager().getEventList().remove(n);
+            GuiViewer.updateView();
+        } else if (e.getActionCommand().contains("DelItem")) {
+            System.out.println("Clicked Item event");
+            int n = Integer.valueOf(e.getActionCommand().replace("DelItem", ""));
+
+            DataManager.getEventManager().getItemList().remove(n);
+            GuiViewer.updateView();
         } else if (e.getActionCommand().equals("Exit")) {
             System.exit(0);
         }

@@ -64,9 +64,15 @@ public class GuiViewer extends JFrame {
             eventPanel.add(viewButton, BorderLayout.WEST);
             eventPanel.add(eventData, BorderLayout.CENTER);
             eventPanel.add(buttonPanel, BorderLayout.EAST);
-
+            
             buttonPanel.add(new JButton("Edit"));
-            buttonPanel.add(new JButton("Delete"));
+            
+            JButton delete = new JButton("Delete");
+            delete.addActionListener(controls);
+            delete.setActionCommand("DelItem" + in);
+            buttonPanel.add(delete);
+            
+            
             in++;
             eventList.add(eventPanel);
         }
@@ -89,7 +95,10 @@ public class GuiViewer extends JFrame {
             edit.setActionCommand("Edit" + en);
             buttonPanel.add(edit);
 
-            buttonPanel.add(new JButton("Delete"));
+            JButton delete = new JButton("Delete");
+            delete.addActionListener(controls);
+            delete.setActionCommand("Delete" + en);
+            buttonPanel.add(delete);
             en++;
             eventList.add(eventPanel);
         }
@@ -131,21 +140,9 @@ public class GuiViewer extends JFrame {
         JTextField Location = new JTextField("Not set", 15);
         JTextField EventTitle = new JTextField("Not set", 15);
 
-        JButton add = new JButton("Add");
-        ActionListener addEvent;
-        addEvent = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                System.out.println("Trigerred add event");
-                DataManager.getEventManager().addEventToManager(
-                        new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
-                GuiViewer.updateView();
-
-            }
-        };
-
-        add.addActionListener(addEvent);
+        
+        
+        
         form.add(new JLabel("Event Title"));
         form.add(EventTitle);
         form.add(new JLabel("Event Time HH:FF Fornat"));
@@ -155,12 +152,25 @@ public class GuiViewer extends JFrame {
         form.add(new JLabel("Event Location"));
         form.add(Location);
         form.add(new JButton("Cancel"));
-
-        form.add(new JButton("Add"));
+        JButton add = new JButton("Add");//Added button add
+        add.addActionListener(controls);
+        form.add(add);
+        
+        
+        
+     
+       
+    
 
         addWindow.setSize(400, 400);
         addWindow.setVisible(true);
     }
+    
+    
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getActionCommand().equals("Add")) {
+            System.out.println("Bingo");
+       }}
 
     public static void editEventForm(Event event) {
         JDialog addWindow = new JDialog();
