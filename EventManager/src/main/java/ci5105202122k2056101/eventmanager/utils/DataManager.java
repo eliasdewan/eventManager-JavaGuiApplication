@@ -23,22 +23,20 @@ import java.io.IOException;
 public class DataManager {
 
     static String loadedString = "";
-    static Eventmanager prog;
+    static Eventmanager eventManager;
 
     public DataManager() {
     }
-    
-    
-    
-    //As a datamanager it should hold all data in this case eventmanager encapsulates all
-    public static Eventmanager getProg() {
-        return prog;
+
+    public static Eventmanager getEventManager() {
+        return eventManager;
     }
 
-    public static void setProg(Eventmanager prog) {
-        DataManager.prog = prog;
+    //As a datamanager it should hold all data in this case eventmanager encapsulates all
+    public static void setEventManager(Eventmanager eventManager) {
+        DataManager.eventManager = eventManager;
     }
-    
+
     public static void printLoadedString() {
         System.out.println("Starts here");
         System.out.println(loadedString);
@@ -57,16 +55,8 @@ public class DataManager {
             text += item.getItemStartTime() + System.lineSeparator();
         }
         for (Event event : prog.getEventList()) {
-            text += event.getTitle() + System.lineSeparator();
-            text += event.getOrganiser().getName() + System.lineSeparator();
-            text += event.getTime() + System.lineSeparator();
-            text += event.getDate() + System.lineSeparator();
-            text += event.getLocation() + System.lineSeparator();
-            for (Item item : event.getItems()) {
-                text += item.getItemtitle() + System.lineSeparator();
-                text += item.getItemStartTime() + System.lineSeparator();
-            }
-        };
+            text += DataManager.listEvent(event);
+        }
         return text;
     }
 
@@ -96,7 +86,6 @@ public class DataManager {
     public static void clearEventmanager(Eventmanager prog) {
         prog.getEventList().clear();
         prog.getItemList().clear();
-
     }
 
     //File file = new File("Eventmanager.csv"); // Temporary
@@ -118,7 +107,7 @@ public class DataManager {
                 loadedString += currentLine;
                 loadedString += System.lineSeparator();
             }
-            System.out.println(loadedString);
+            System.out.println(loadedString);// Prints what it has loaded
         } catch (IOException FileNotFoundException) {
             System.out.println("File reading failed, File not found");
         }
@@ -137,8 +126,8 @@ public class DataManager {
      * <Item>,itemtitle,itemstarttime
      */
     public static void loadFromString(Eventmanager evm) {
-        //DataManager.clearEventmanager(evm); // If needed to clear event manager
-        int locator = 0; // For adding item to manager or event
+        DataManager.clearEventmanager(evm); // If needed to clear event manager when loading from string
+        int locator = 0; // For adding item to manager or event   
         String[] splitLoadedString = loadedString.split(System.lineSeparator());
         for (String singleline : splitLoadedString) {
             //System.out.println(singleline);

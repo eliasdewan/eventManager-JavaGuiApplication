@@ -30,6 +30,7 @@ public class Main {
     public static void main(String[] args) {
         //Objects creation - testing initialization
         Eventmanager prog = new Eventmanager();
+        DataManager.setEventManager(prog);
         System.out.println(prog.getClass());
         //Creating event and  testing the add and remove methods
         //From eventmanager Eventlist

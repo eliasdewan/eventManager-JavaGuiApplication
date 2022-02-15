@@ -6,6 +6,8 @@
 package ci5105202122k2056101.eventmanager.view;
 
 import ci5105202122k2056101.eventmanager.control.GUIControl;
+import ci5105202122k2056101.eventmanager.model.Event;
+import ci5105202122k2056101.eventmanager.utils.DataManager;
 import java.awt.BorderLayout;
 import javax.swing.*;
 
@@ -15,22 +17,38 @@ import javax.swing.*;
  */
 public class GuiViewer extends JFrame {
 
-    private JTextArea textArea = new JTextArea();
+    // private JTextArea textArea = new JTextArea();
     private JMenuBar menubar;
+    private static GuiViewer start;
+    private static JPanel eventPanel = new JPanel(new BorderLayout());
 
     public void view() { // Make viewer visible and size 500 -500
         this.setSize(500, 500);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(rootPaneCheckingEnabled);
+    }
+
+    public static void updateView() {
+        eventPanel.removeAll();
+        System.out.println("Triggered update view");
+        int n = 0;// For button action
+        for (Event event : DataManager.getEventManager().getEventList()) {
+            eventPanel.add(new JTextArea(DataManager.listEvent(event)), BorderLayout.CENTER);
+            eventPanel.add(GUIControl.getView(), BorderLayout.WEST);
+            eventPanel.add(new JTextArea(DataManager.listEvent(event)), BorderLayout.EAST);
+        }
+        
+        start.add(eventPanel);
+        SwingUtilities.updateComponentTreeUI(start);
+        //start.update(start.getGraphics());// ----Works but slow
 
     }
 
-    public void viewTextArea() {
-        textArea.setText("Woring example");
-        this.add(textArea, BorderLayout.CENTER);
+    public void viewData() {
+
     }
 
-    public void viewMenuBar() { //Add menubar to viewer
+    public void viewMenuBar() { //Add menubar to viewer with file (Load and save) and exit
         GUIControl controls = new GUIControl();
         menubar = GUIControl.getMb();
         this.setJMenuBar(menubar);
@@ -41,19 +59,13 @@ public class GuiViewer extends JFrame {
 
     }
 
-    public static void GuiViewerStart() {
-        GuiViewer start = new GuiViewer();
-        
-        GUIControl controls = new GUIControl();
-        
+    public static void GuiViewerStart() { //Start point of gui
+        start = new GuiViewer(); // New gui viewer
+        GUIControl controls = new GUIControl();//New gui control element
         controls.actionForButtons(); // Assign action listener
-
-        start.setLayout(new BorderLayout());//Button and layout setting
-        start.viewTextArea();
-        //start.add(GUIControl.getLoad(), BorderLayout.CENTER);
-
         start.viewMenuBar();// Jmenubar add to view
-
+        //GuiViewer.updateView();
+        //start.updateView();// Loading the content into the panel ----------
         start.view();//make frame visible
 
     }

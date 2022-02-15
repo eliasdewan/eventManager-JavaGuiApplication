@@ -1,0 +1,39 @@
+grid layout
+border layout
+
+
+
+Menu	list
+File 
+	Load
+	Save to
+
+Layout manager
+
+
+
+Start at datamanger where it initiates a new object eventmanager and set in attribute
+
+
+Add event
+Delete event 
+
+Item in event manager - add and remover
+
+Person to event?
+
+Load and save
+
+Edit details of event
+
+
+
+
+
+Delete event
+Edit event
+View event button
+
+
+Gets the event from event manager as list for loop create button and put in the identifier of that button
+Maybe panerl with view at the left , text area in the middle and three buttons vertical left

@@ -6,6 +6,7 @@
 package ci5105202122k2056101.eventmanager.control;
 
 import ci5105202122k2056101.eventmanager.utils.DataManager;
+import ci5105202122k2056101.eventmanager.view.GuiViewer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File; // remove later
@@ -19,6 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class GUIControl implements ActionListener {
 
     private static JButton load = new JButton("Load");
+    private static JButton view = new JButton("View");
     private static JButton save = new JButton("Save");
     private static JButton add = new JButton("Add");
     private static JMenuBar mb = new JMenuBar();
@@ -36,6 +38,7 @@ public class GUIControl implements ActionListener {
         loadFile.addActionListener(this);
         saveFile.addActionListener(this);
         exit.addActionListener(this);
+        view.addActionListener(this);
     }
 
     public static JButton getLoad() {
@@ -62,6 +65,10 @@ public class GUIControl implements ActionListener {
         return file;
     }
 
+    public static JButton getView() {
+        return view;
+    }
+
     public static JMenuItem getLoadFile() {
         return loadFile;
     }
@@ -78,7 +85,10 @@ public class GUIControl implements ActionListener {
             fileChooser.setFileFilter(new FileNameExtensionFilter("CSV file", "csv"));
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                fileChooser.setSelectedFile(file);
+                System.out.println(file.getAbsoluteFile());//Prints the location of file
+                DataManager.fileToString(file.getAbsolutePath()); //String from file
+                DataManager.loadFromString(DataManager.getEventManager()); //Requires data manager to load data to
+                GuiViewer.updateView();
             }
         } else if (e.getActionCommand().equals("Save to file")) {
             System.out.println("Clicked save to file");
@@ -86,11 +96,15 @@ public class GUIControl implements ActionListener {
                 fileChooser.setFileFilter(new FileNameExtensionFilter("CSV file", "csv"));
                 File file = fileChooser.getSelectedFile();
                 System.out.println(file.getAbsoluteFile());
-                
-              //  DataManager.loadToString(); //Requires data manager
-                DataManager.saveToFile(file.getAbsolutePath());
+                DataManager.loadToString(DataManager.getEventManager()); //Requires data manager - loads in string
+                DataManager.saveToFile(file.getAbsolutePath()); // Saves to file selected if file not exist will create
             }
-        } else if (e.getActionCommand().equals("Exit")) {
+        } 
+        
+        else if (e.getActionCommand().equals("View")) {
+            System.out.println("Clicked view");
+        }
+        else if (e.getActionCommand().equals("Exit")) {
             System.exit(0);
         }
     }
