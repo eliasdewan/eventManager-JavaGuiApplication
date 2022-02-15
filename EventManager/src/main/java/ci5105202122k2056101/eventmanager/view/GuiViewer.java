@@ -89,6 +89,7 @@ public class GuiViewer extends JFrame {
 
     }//-------------------------------------------------
 
+    
 
     public static void addEventForm() {
         JDialog addWindow = new JDialog();
@@ -116,7 +117,7 @@ public class GuiViewer extends JFrame {
         addWindow.setVisible(true);
     }
 
-    public void 
+    
     
     
     public void viewMenuBar() { //Add menubar to viewer with file (Load and save) and exit
