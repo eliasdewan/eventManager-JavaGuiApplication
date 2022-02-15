@@ -7,6 +7,7 @@ package ci5105202122k2056101.eventmanager.view;
 
 import ci5105202122k2056101.eventmanager.control.GUIControl;
 import ci5105202122k2056101.eventmanager.model.Event;
+import ci5105202122k2056101.eventmanager.model.Eventmanager;
 import ci5105202122k2056101.eventmanager.model.Item;
 import ci5105202122k2056101.eventmanager.utils.DataManager;
 import java.awt.BorderLayout;
@@ -324,7 +325,13 @@ public class GuiViewer extends JFrame {
 
     }
 
+    /**
+     *Start point set DataManager.setEventManager(new Eventmanager());
+     * if not done in main method and only using gui
+     * 
+     */
     public static void GuiViewerStart() { //Start point of gui
+       // DataManager.setEventManager(new Eventmanager());// Comment out if using test console
         start = new GuiViewer(); // New gui viewer
         start.setLayout(new BorderLayout()); // New gui viewer      
         controls = new GUIControl();//New gui control element

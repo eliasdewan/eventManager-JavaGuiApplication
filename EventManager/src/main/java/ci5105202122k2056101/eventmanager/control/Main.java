@@ -104,7 +104,10 @@ public class Main {
 
         /*GUI TESTING
         */
-        GuiViewer.GuiViewerStart();
+        
+        
+        
+        GuiViewer.GuiViewerStart(); ///Main what is needed
     }
 
 }
