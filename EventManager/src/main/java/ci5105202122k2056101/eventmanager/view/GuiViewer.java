@@ -69,7 +69,16 @@ public class GuiViewer extends JFrame {
             eventPanel.add(eventData, BorderLayout.CENTER);
             eventPanel.add(buttonPanel, BorderLayout.EAST);
 
-            buttonPanel.add(new JButton("Edit"));
+            
+            
+            
+            
+            JButton edit = new JButton("Edit");
+            edit.addActionListener(controls);
+            edit.setActionCommand("EdItem"+in);
+            buttonPanel.add(edit);
+            
+            
 
             JButton delete = new JButton("Delete");
             delete.addActionListener(controls);
@@ -182,6 +191,55 @@ public class GuiViewer extends JFrame {
             System.out.println("Bingo");
         }
     }
+    
+    
+    public static void editItems(Item item) {
+        JDialog addWindow = new JDialog();
+        addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel form = new JPanel(new GridLayout(0, 2));
+        addWindow.add(form);
+
+        JTextField Time = new JTextField(item.getItemStartTime().format(DateTimeFormatter.ofPattern("hh:mm")), 15);
+        JTextField ItemTitle = new JTextField(item.getItemtitle(), 15);
+
+        form.add(new JLabel("Item Title"));
+        form.add(ItemTitle);
+        form.add(new JLabel("Event Time HH:FF Fornat"));
+        form.add(Time);
+        
+        
+        ActionListener window;
+        window = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("Save")) {
+                   // DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
+                   
+                   item.setItemtitle(ItemTitle.getText());
+                   item.setItemStartTime(Time.getText());
+                   GuiViewer.updateView();
+                    addWindow.dispose();
+                } else if (e.getActionCommand().equals("Cancel")) {
+                    addWindow.dispose();
+                }
+            }
+        };
+        
+        
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(window);
+        form.add(cancel);
+        JButton save = new JButton("Save");//Added button add
+        save.addActionListener(window);
+        form.add(save);
+
+        addWindow.setSize(400, 400);
+        addWindow.setVisible(true);
+    }
+    
+    
+    
+    
 
     public static void editEventForm(Event event) {
         JDialog addWindow = new JDialog();
