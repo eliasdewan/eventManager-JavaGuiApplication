@@ -9,6 +9,7 @@ import ci5105202122k2056101.eventmanager.control.GUIControl;
 import ci5105202122k2056101.eventmanager.model.Event;
 import ci5105202122k2056101.eventmanager.model.Eventmanager;
 import ci5105202122k2056101.eventmanager.model.Item;
+import ci5105202122k2056101.eventmanager.model.Organiser;
 import ci5105202122k2056101.eventmanager.utils.DataManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -143,13 +144,14 @@ public class GuiViewer extends JFrame {
 
     public static void viewEvent(Event event) {
 
-        JDialog addWindow = new JDialog();
+        JDialog addWindow = new JDialog(start, event.getTitle());
         addWindow.setLayout(new BorderLayout());
         ScrollPane scrollPane = new ScrollPane();
         addWindow.add(scrollPane);
         JPanel firstPanel = new JPanel(new GridLayout(0, 1, 5, 5));
         JPanel itemsPanel = new JPanel(new GridLayout(0, 1, 5, 5));
-        JPanel eventPanel = new JPanel(new GridLayout(0, 1, 5, 5));
+        //JPanel eventPanel = new JPanel(new GridLayout(0, 1, 5, 5));
+        JPanel eventPanel = new JPanel(new BorderLayout());
         scrollPane.add(firstPanel);
         firstPanel.add(eventPanel);
         firstPanel.add(itemsPanel);
@@ -158,9 +160,23 @@ public class GuiViewer extends JFrame {
         addItem.setActionCommand("Add Event Item" + DataManager.getEventManager().getEventList().indexOf(event));
         addItem.addActionListener(controls);
         addWindow.add(addItem, BorderLayout.NORTH);
+
+        JButton setOrganiser = new JButton("Change/Set " + System.lineSeparator() + " Organiser");
+        setOrganiser.setActionCommand("setOrganiser" + DataManager.getEventManager().getEventList().indexOf(event));
+        setOrganiser.addActionListener(controls);
+        
+
 // -- EVENT DATA --//
         JTextArea text = new JTextArea(DataManager.listEvent(event));
-        eventPanel.add(text);
+        eventPanel.add(text, BorderLayout.CENTER);
+        eventPanel.add(setOrganiser, BorderLayout.EAST);
+
+        //--ITEM DATA--//
+        itemsPanel.add(new JTextArea("ITEM"));
+        itemsPanel.add(new JTextArea("ITEM"));
+        itemsPanel.add(new JTextArea("ITEM"));
+        itemsPanel.add(new JTextArea("ITEM"));
+        itemsPanel.add(new JTextArea("ITEM"));
 
         // -- SET TO LAST LINES -- //
         addWindow.setSize(400, 400);
@@ -263,21 +279,63 @@ public class GuiViewer extends JFrame {
         addWindow.setVisible(true);
     }
 
-    public static void viewItem(Item item) {
-
+    public static void editOrganiser(Event event) {
         JDialog addWindow = new JDialog();
         addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         addWindow.add(form);
+
+        JTextField name = new JTextField(event.getOrganiser().getName(), 15);
+        form.add(new JLabel("Organiser name"));
+        form.add(name);
+
+        ActionListener window;
+        window = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("Save")) {
+
+                    event.setOrganiser(new Organiser(name.getText()));
+
+                    GuiViewer.updateView();
+                    addWindow.dispose();
+                } else if (e.getActionCommand().equals("Cancel")) {
+                    addWindow.dispose();
+                }
+            }
+        };
+
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(window);
+        form.add(cancel);
+        JButton save = new JButton("Save");//Added button add
+        save.addActionListener(window);
+        form.add(save);
+
+        addWindow.setSize(400, 400);
+        addWindow.setVisible(true);
+    }
+
+    public static void viewItem(Item item) {
+
+        JDialog viewWindow = new JDialog();
+        viewWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
+        viewWindow.add(form);
         JTextArea text = new JTextArea(DataManager.listItem(item));;
         text.setPreferredSize(new Dimension(400, 100));
         form.add(text);
 
-        addWindow.setSize(400, 400);
-        addWindow.setVisible(true);
+        viewWindow.setSize(400, 400);
+        viewWindow.setVisible(true);
 
     }
 
+    /**
+     * For both event item and General manager items
+     *
+     * @param object
+     */
     public static void addItems(Object object) {
         JDialog addWindow = new JDialog();
         addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -306,6 +364,7 @@ public class GuiViewer extends JFrame {
 
                         Event event = (Event) object;
                         event.addIAgendatemToEvent(new Item(ItemTitle.getText(), Time.getText()));
+
                     }
 
                     GuiViewer.updateView();
@@ -328,10 +387,10 @@ public class GuiViewer extends JFrame {
     }
 
     public static void editItems(Item item) {
-        JDialog addWindow = new JDialog();
-        addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        JDialog editWindow = new JDialog();
+        editWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
-        addWindow.add(form);
+        editWindow.add(form);
 
         JTextField Time = new JTextField(item.getItemStartTime().format(DateTimeFormatter.ofPattern("hh:mm")), 15);
         JTextField ItemTitle = new JTextField(item.getItemtitle(), 15);
@@ -351,9 +410,9 @@ public class GuiViewer extends JFrame {
                     item.setItemtitle(ItemTitle.getText());
                     item.setItemStartTime(Time.getText());
                     GuiViewer.updateView();
-                    addWindow.dispose();
+                    editWindow.dispose();
                 } else if (e.getActionCommand().equals("Cancel")) {
-                    addWindow.dispose();
+                    editWindow.dispose();
                 }
             }
         };
@@ -365,8 +424,8 @@ public class GuiViewer extends JFrame {
         save.addActionListener(window);
         form.add(save);
 
-        addWindow.setSize(400, 400);
-        addWindow.setVisible(true);
+        editWindow.setSize(400, 400);
+        editWindow.setVisible(true);
     }
 
     public void viewMenuBar() { //Add menubar to viewer with file (Load and save) and exit

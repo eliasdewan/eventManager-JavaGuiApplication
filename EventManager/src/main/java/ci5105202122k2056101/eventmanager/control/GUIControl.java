@@ -7,6 +7,7 @@ package ci5105202122k2056101.eventmanager.control;
 
 import ci5105202122k2056101.eventmanager.utils.DataManager;
 import ci5105202122k2056101.eventmanager.view.GuiViewer;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File; // remove later
@@ -107,8 +108,20 @@ public class GUIControl implements ActionListener {
         } else if (e.getActionCommand().equals("Add Item")) {
             System.out.println("Clicked add general item");
             GuiViewer.addItems(DataManager.getEventManager());
-
-        } else if (e.getActionCommand().contains("Add Event Item")) {
+        } 
+        
+         else if (e.getActionCommand().contains("setOrganiser")) {
+            System.out.println("Clicked set organiser");
+            int n = Integer.valueOf(e.getActionCommand().replace("setOrganiser", ""));
+            GuiViewer.editOrganiser(
+            (DataManager.getEventManager().getEventList().get(n))
+            );
+            
+            
+        } 
+        
+        
+        else if (e.getActionCommand().contains("Add Event Item")) {
             System.out.println("Clicked add Event item");
             int n = Integer.valueOf(e.getActionCommand().replace("Add Event Item", ""));
              GuiViewer.addItems(DataManager.getEventManager().getEventList().get(n));
