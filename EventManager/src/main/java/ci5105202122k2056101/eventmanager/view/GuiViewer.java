@@ -43,18 +43,12 @@ public class GuiViewer extends JFrame {
 
     //JFrame-->mainPane-->eventList-->buttonPanel,view,textarea
     public static void updateView() {//======================================
-        mainPane.removeAll();
-        JButton add = new JButton("Add Event");
-        add.addActionListener(controls);
-        start.add(add, BorderLayout.NORTH);
-        JButton addItem = new JButton("Add Item");
-        addItem.addActionListener(controls);
-        start.add(addItem, BorderLayout.SOUTH);
         JPanel eventList = new JPanel(new GridLayout(0, 1));// List of events
-        eventList.setPreferredSize(new Dimension(450, 100));
+        //eventList.setPreferredSize(new Dimension(450, 100));
         JPanel buttonPanel = new JPanel(new GridLayout(0, 1));// Panel for east side buttons
         //BoxLayout box = new BoxLayout(buttonPanel, BoxLayout.Y_AXIS);
-        JPanel eventPanel = new JPanel(new BorderLayout()); // // Panel new  
+        JPanel eventPanel = new JPanel(new BorderLayout()); // // Panel new 
+        //eventPanel.setPreferredSize(new Dimension(1000, 1000));
         JPanel eventData = new JPanel(new GridLayout(0, 1)); // // Panel new  
         JPanel viewButton = new JPanel(new GridLayout(0, 1)); // // Panel new  
 
@@ -338,6 +332,13 @@ public class GuiViewer extends JFrame {
         controls.actionForButtons(); // Assign action listener
         start.viewMenuBar();// Jmenubar add to view
         start.viewMenuBar();
+        mainPane.removeAll();
+        JButton add = new JButton("Add Event");
+        add.addActionListener(controls);
+        start.add(add, BorderLayout.NORTH);
+        JButton addItem = new JButton("Add Item");
+        addItem.addActionListener(controls);
+        start.add(addItem, BorderLayout.SOUTH);
         GuiViewer.updateView();
         start.view();
         //make frame visible
