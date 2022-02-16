@@ -331,7 +331,7 @@ public class GuiViewer extends JFrame {
      * 
      */
     public static void GuiViewerStart() { //Start point of gui
-       // DataManager.setEventManager(new Eventmanager());// Comment out if using test console
+        DataManager.setEventManager(new Eventmanager());// Comment out if using test console
         start = new GuiViewer(); // New gui viewer
         start.setLayout(new BorderLayout()); // New gui viewer      
         controls = new GUIControl();//New gui control element

@@ -28,6 +28,9 @@ public class Main {
      * = new Eventmanager(); // Like this
      */
     public static void main(String[] args) {
+       // COMMENTED OUT FROM HERE TO line 84
+        /*
+       
         //Objects creation - testing initialization
         Eventmanager prog = new Eventmanager();
         DataManager.setEventManager(prog);
@@ -76,6 +79,9 @@ public class Main {
         local.setTime("09:00");
         local.setLocation("Outside Park ☠");
         System.out.println(DataManager.listEvent(local));
+        
+        
+        */ //HERE
 
 //Saving file testing
         // DataManager.loadToString(prog); // Load current data to the sting
@@ -108,6 +114,10 @@ public class Main {
         
         
         GuiViewer.GuiViewerStart(); ///Main what is needed
+        
+        
+                
+                
     }
 
 }
