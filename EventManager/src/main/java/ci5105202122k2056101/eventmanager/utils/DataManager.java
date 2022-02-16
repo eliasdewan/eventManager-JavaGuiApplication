@@ -62,7 +62,7 @@ public class DataManager {
     /**
      *
      * @param prog
-     * @return only event items
+     * @return only single Item Object string
      */
     public static String listItem(Item item) {
         String text = "";

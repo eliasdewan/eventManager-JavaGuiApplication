@@ -96,8 +96,7 @@ public class GUIControl implements ActionListener {
             //System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
             GuiViewer.editEventForm(DataManager.getEventManager().getEventList().get(n));
 
-        }
-         else if (e.getActionCommand().contains("EdItem")) {
+        } else if (e.getActionCommand().contains("EdItem")) {
             //System.out.println("Given replaced:"+e.getActionCommand().replace("View", ""));
             int n = Integer.valueOf(e.getActionCommand().replace("EdItem", ""));
 
@@ -105,17 +104,16 @@ public class GUIControl implements ActionListener {
             //System.out.println(DataManager.listEvent(DataManager.getEventManager().getEventList().get(n)));
             GuiViewer.editItems(DataManager.getEventManager().getItemList().get(n));
 
-        }
-        
-        
-        else if (e.getActionCommand().equals("Add Item")) {
-            System.out.println("Clicked add item");
-            GuiViewer.addItems();
+        } else if (e.getActionCommand().equals("Add Item")) {
+            System.out.println("Clicked add general item");
+            GuiViewer.addItems(DataManager.getEventManager());
 
-        }
-        
-        
-        else if (e.getActionCommand().equals("Add Event")) {
+        } else if (e.getActionCommand().contains("Add Event Item")) {
+            System.out.println("Clicked add Event item");
+            int n = Integer.valueOf(e.getActionCommand().replace("Add Event Item", ""));
+             GuiViewer.addItems(DataManager.getEventManager().getEventList().get(n));
+
+        } else if (e.getActionCommand().equals("Add Event")) {
             System.out.println("Clicked add event");
             GuiViewer.addEventForm();
 
