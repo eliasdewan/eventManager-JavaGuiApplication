@@ -156,15 +156,31 @@ public class GuiViewer extends JFrame {
         firstPanel.add(eventPanel);
         firstPanel.add(itemsPanel);
 
+        ActionListener window;
+        window = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand().equals("Add Event Item")) {
+                    System.out.println("Clicked add Event item");
+                    GuiViewer.addItems(event);
+
+                } else if (e.getActionCommand().equals("setOrganiser")) {
+                    System.out.println("Clicked set organiser");
+                    GuiViewer.editOrganiser(event);
+                } else if (e.getActionCommand().equals("Cancel")) {
+                    addWindow.dispose();
+                }
+            }
+        };
+
         JButton addItem = new JButton("Add Item");
-        addItem.setActionCommand("Add Event Item" + DataManager.getEventManager().getEventList().indexOf(event));
-        addItem.addActionListener(controls);
+        addItem.setActionCommand("Add Event Item");
+        addItem.addActionListener(window);
         addWindow.add(addItem, BorderLayout.NORTH);
 
         JButton setOrganiser = new JButton("Change/Set " + System.lineSeparator() + " Organiser");
-        setOrganiser.setActionCommand("setOrganiser" + DataManager.getEventManager().getEventList().indexOf(event));
-        setOrganiser.addActionListener(controls);
-        
+        setOrganiser.setActionCommand("setOrganiser");
+        setOrganiser.addActionListener(window);
 
 // -- EVENT DATA --//
         JTextArea text = new JTextArea(DataManager.listEvent(event));
@@ -172,7 +188,7 @@ public class GuiViewer extends JFrame {
         eventPanel.add(setOrganiser, BorderLayout.EAST);
 
         //--ITEM DATA--//
-        itemsPanel.add(new JTextArea("ITEM"));
+        itemsPanel.add(new JTextArea("ITEM"));// TESTING
         itemsPanel.add(new JTextArea("ITEM"));
         itemsPanel.add(new JTextArea("ITEM"));
         itemsPanel.add(new JTextArea("ITEM"));
@@ -182,6 +198,7 @@ public class GuiViewer extends JFrame {
         addWindow.setSize(400, 400);
         addWindow.setVisible(true);
         addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+
     }
 
     public static void addEventForm() {
@@ -282,11 +299,11 @@ public class GuiViewer extends JFrame {
     public static void editOrganiser(Event event) {
         JDialog addWindow = new JDialog();
         addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
-        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
+        JPanel form = new JPanel(new GridLayout(0, 2, 5, 50));
         addWindow.add(form);
 
         JTextField name = new JTextField(event.getOrganiser().getName(), 15);
-        form.add(new JLabel("Organiser name"));
+        form.add(new JLabel("   Organiser name"));
         form.add(name);
 
         ActionListener window;
@@ -312,7 +329,7 @@ public class GuiViewer extends JFrame {
         save.addActionListener(window);
         form.add(save);
 
-        addWindow.setSize(400, 400);
+        addWindow.setSize(400, 200);
         addWindow.setVisible(true);
     }
 

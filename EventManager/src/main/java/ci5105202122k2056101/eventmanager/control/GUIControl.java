@@ -108,24 +108,6 @@ public class GUIControl implements ActionListener {
         } else if (e.getActionCommand().equals("Add Item")) {
             System.out.println("Clicked add general item");
             GuiViewer.addItems(DataManager.getEventManager());
-        } 
-        
-         else if (e.getActionCommand().contains("setOrganiser")) {
-            System.out.println("Clicked set organiser");
-            int n = Integer.valueOf(e.getActionCommand().replace("setOrganiser", ""));
-            GuiViewer.editOrganiser(
-            (DataManager.getEventManager().getEventList().get(n))
-            );
-            
-            
-        } 
-        
-        
-        else if (e.getActionCommand().contains("Add Event Item")) {
-            System.out.println("Clicked add Event item");
-            int n = Integer.valueOf(e.getActionCommand().replace("Add Event Item", ""));
-             GuiViewer.addItems(DataManager.getEventManager().getEventList().get(n));
-
         } else if (e.getActionCommand().equals("Add Event")) {
             System.out.println("Clicked add event");
             GuiViewer.addEventForm();
