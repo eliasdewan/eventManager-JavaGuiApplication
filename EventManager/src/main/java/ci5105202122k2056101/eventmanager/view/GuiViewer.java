@@ -12,6 +12,7 @@ import ci5105202122k2056101.eventmanager.model.Item;
 import ci5105202122k2056101.eventmanager.model.Organiser;
 import ci5105202122k2056101.eventmanager.utils.DataManager;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import java.awt.GridBagLayout;
@@ -22,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.*;
 
 /**
@@ -244,10 +246,19 @@ public class GuiViewer extends JFrame {
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         addWindow.add(form);
 
+        JLabel time = new JLabel();
+        JLabel error = new JLabel();
+        error.setForeground(Color.red);
+        time.setForeground(Color.red);
+        
+
         JTextField Time = new JTextField("00:00", 15);
         JTextField Date = new JTextField("2000-01-01", 15);
         JTextField Location = new JTextField("Not set", 15);
         JTextField EventTitle = new JTextField("Not set", 15);
+
+        form.add(error);
+        form.add(time);
 
         form.add(new JLabel("Event Title"));
         form.add(EventTitle);
@@ -263,9 +274,20 @@ public class GuiViewer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("Add")) {
-                    DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
-                    GuiViewer.updateView();
+                    //       DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
+                    try {
+                        DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
+                        GuiViewer.updateView();
                     addWindow.dispose();
+                    } catch (DateTimeParseException exeption) {
+                        System.out.println("Date and time format is wrong");
+                        time.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+                        error.setText("   DateTimeFormat error");
+                    } catch (Exception allexeption) {
+                        System.out.println("Something went wrong");
+                        error.setText("Something went wrong");
+                    }
+                    
                 } else if (e.getActionCommand().equals("Cancel")) {
                     addWindow.dispose();
                 }
