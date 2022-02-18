@@ -250,7 +250,6 @@ public class GuiViewer extends JFrame {
         JLabel error = new JLabel();
         error.setForeground(Color.red);
         time.setForeground(Color.red);
-        
 
         JTextField Time = new JTextField("00:00", 15);
         JTextField Date = new JTextField("2000-01-01", 15);
@@ -278,7 +277,7 @@ public class GuiViewer extends JFrame {
                     try {
                         DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
                         GuiViewer.updateView();
-                    addWindow.dispose();
+                        addWindow.dispose();
                     } catch (DateTimeParseException exeption) {
                         System.out.println("Date and time format is wrong");
                         time.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
@@ -287,7 +286,7 @@ public class GuiViewer extends JFrame {
                         System.out.println("Something went wrong");
                         error.setText("Something went wrong");
                     }
-                    
+
                 } else if (e.getActionCommand().equals("Cancel")) {
                     addWindow.dispose();
                 }
@@ -311,10 +310,18 @@ public class GuiViewer extends JFrame {
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         addWindow.add(form);
 
+        JLabel time = new JLabel();
+        JLabel error = new JLabel();
+        error.setForeground(Color.red);
+        time.setForeground(Color.red);
+
         JTextField Time = new JTextField(event.getTime().format(DateTimeFormatter.ofPattern("hh:mm")), 15);
         JTextField Date = new JTextField(event.getDate().format(DateTimeFormatter.ISO_DATE));
         JTextField Location = new JTextField(event.getLocation(), 15);
         JTextField EventTitle = new JTextField(event.getTitle(), 15);
+
+        form.add(error);
+        form.add(time);
 
         form.add(new JLabel("Event Title"));
         form.add(EventTitle);
@@ -332,12 +339,23 @@ public class GuiViewer extends JFrame {
                 if (e.getActionCommand().equals("Save")) {
                     // DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
 
-                    event.setTitle(EventTitle.getText());
-                    event.setTime(Time.getText());
-                    event.setLocation(Location.getText());
-                    event.setDate(Date.getText());
-                    GuiViewer.updateView();
-                    addWindow.dispose();
+                    try {
+                        event.setTitle(EventTitle.getText());
+                        event.setTime(Time.getText());
+                        event.setLocation(Location.getText());
+                        event.setDate(Date.getText());
+                        GuiViewer.updateView();
+                        addWindow.dispose();
+
+                    } catch (DateTimeParseException exeption) {
+                        System.out.println("Date and time format is wrong");
+                        time.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+                        error.setText("   DateTimeFormat error");
+                    } catch (Exception allexeption) {
+                        System.out.println("Something went wrong");
+                        error.setText("Something went wrong");
+                    }
+
                 } else if (e.getActionCommand().equals("Cancel")) {
                     addWindow.dispose();
                 }
@@ -419,8 +437,16 @@ public class GuiViewer extends JFrame {
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         addWindow.add(form);
 
+        JLabel time = new JLabel();
+        JLabel error = new JLabel();
+        error.setForeground(Color.red);
+        time.setForeground(Color.red);
+
         JTextField Time = new JTextField("00:00", 15);
         JTextField ItemTitle = new JTextField("Not set", 15);
+
+        form.add(error);
+        form.add(time);
 
         form.add(new JLabel("Item Title"));
         form.add(ItemTitle);
@@ -432,24 +458,36 @@ public class GuiViewer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("Add")) {
-                    if (object.getClass() == DataManager.getEventManager().getClass()) {
-                        DataManager.getEventManager().addItemToManager(
-                                new Item(ItemTitle.getText(), Time.getText()));
-                        System.out.println("Recognised manager add item added");
-                    } else if (DataManager.getEventManager().getEventList().contains(object)) {
-                        System.out.println("Recognised event add item trigger");
 
-                        Event event = (Event) object;
-                        event.addIAgendatemToEvent(new Item(ItemTitle.getText(), Time.getText()));
-                        // IMPLEMENT VIEW EVENT
+                    try {
 
-                        //addWindow.getOwner().getOwnedWindows()[0].dispose(); KIND OF WORKED
-                        viewEventWindow.dispose();  //ALSO WORKS
-                        GuiViewer.viewEvent((Event) object);
+                        if (object.getClass() == DataManager.getEventManager().getClass()) {
+                            DataManager.getEventManager().addItemToManager(
+                                    new Item(ItemTitle.getText(), Time.getText()));
+                            System.out.println("Recognised manager add item added");
+                        } else if (DataManager.getEventManager().getEventList().contains(object)) {
+                            System.out.println("Recognised event add item trigger");
+
+                            Event event = (Event) object;
+                            event.addIAgendatemToEvent(new Item(ItemTitle.getText(), Time.getText()));
+                            // IMPLEMENT VIEW EVENT
+
+                            //addWindow.getOwner().getOwnedWindows()[0].dispose(); KIND OF WORKED
+                            viewEventWindow.dispose();  //ALSO WORKS
+                            GuiViewer.viewEvent((Event) object);
+                        }
+                        addWindow.dispose();
+                        GuiViewer.updateView(); // Updates main window - boe both add event item and normal item
+
+                    } catch (DateTimeParseException exeption) {
+                        System.out.println("Date and time format is wrong");
+                        time.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+                        error.setText("   DateTimeFormat error");
+                    } catch (Exception allexeption) {
+                        System.out.println("Something went wrong");
+                        error.setText("Something went wrong");
                     }
-                    addWindow.dispose();
-                    GuiViewer.updateView(); // Updates main window - boe both add event item and normal item
-                    //readd -----          //addWindow.dispose(); // closes the add item window once added
+
                 } else if (e.getActionCommand().equals("Cancel")) {
                     addWindow.dispose();
                 }
@@ -473,8 +511,16 @@ public class GuiViewer extends JFrame {
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         editWindow.add(form);
 
+        JLabel time = new JLabel();
+        JLabel error = new JLabel();
+        error.setForeground(Color.red);
+        time.setForeground(Color.red);
+
         JTextField Time = new JTextField(item.getItemStartTime().format(DateTimeFormatter.ofPattern("hh:mm")), 15);
         JTextField ItemTitle = new JTextField(item.getItemtitle(), 15);
+
+        form.add(error);
+        form.add(time);
 
         form.add(new JLabel("Item Title"));
         form.add(ItemTitle);
@@ -488,10 +534,21 @@ public class GuiViewer extends JFrame {
                 if (e.getActionCommand().equals("Save")) {
                     // DataManager.getEventManager().addEventToManager(new Event(EventTitle.getText(), Time.getText(), Date.getText(), Location.getText()));
 
-                    item.setItemtitle(ItemTitle.getText());
-                    item.setItemStartTime(Time.getText());
-                    GuiViewer.updateView();
-                    editWindow.dispose();
+                    try {
+
+                        item.setItemtitle(ItemTitle.getText());
+                        item.setItemStartTime(Time.getText());
+                        GuiViewer.updateView();
+                        editWindow.dispose();
+
+                    } catch (DateTimeParseException exeption) {
+                        System.out.println("Date and time format is wrong");
+                        time.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+                        error.setText("   DateTimeFormat error");
+                    } catch (Exception allexeption) {
+                        System.out.println("Something went wrong");
+                        error.setText("Something went wrong");
+                    }
 
                     //IMPLEMENT EVENT UPDATE window
                     for (Event event : DataManager.getEventManager().getEventList()) {
