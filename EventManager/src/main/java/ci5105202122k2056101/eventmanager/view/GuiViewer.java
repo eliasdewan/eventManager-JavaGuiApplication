@@ -540,6 +540,14 @@ public class GuiViewer extends JFrame {
                         item.setItemStartTime(Time.getText());
                         GuiViewer.updateView();
                         editWindow.dispose();
+                        //IMPLEMENT EVENT UPDATE window
+                        for (Event event : DataManager.getEventManager().getEventList()) {
+                            if (event.getAgendaItem().contains(item)) {
+                                System.out.println("Foun the item through loop");
+                                viewEventWindow.dispose();  //ALSO WORKS
+                                GuiViewer.viewEvent(event);
+                            }
+                        }
 
                     } catch (DateTimeParseException exeption) {
                         System.out.println("Date and time format is wrong");
@@ -548,15 +556,6 @@ public class GuiViewer extends JFrame {
                     } catch (Exception allexeption) {
                         System.out.println("Something went wrong");
                         error.setText("Something went wrong");
-                    }
-
-                    //IMPLEMENT EVENT UPDATE window
-                    for (Event event : DataManager.getEventManager().getEventList()) {
-                        if (event.getAgendaItem().contains(item)) {
-                            System.out.println("Foun the item through loop");
-                            viewEventWindow.dispose();  //ALSO WORKS
-                            GuiViewer.viewEvent(event);
-                        }
                     }
 
                 } else if (e.getActionCommand().equals("Cancel")) {
