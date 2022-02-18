@@ -33,6 +33,7 @@ public class GuiViewer extends JFrame {
     // private JTextArea textArea = new JTextArea();
     private JMenuBar menubar;
     private static GuiViewer start;
+    private static JDialog viewEventWindow;
     private static ScrollPane mainPane = new ScrollPane();//Main scrollable area
     private static GUIControl controls;
 
@@ -42,7 +43,7 @@ public class GuiViewer extends JFrame {
      *
      */
     public static void GuiViewerStart() { //Start point of gui
-        DataManager.setEventManager(new Eventmanager());// Comment out if using test console
+        DataManager.setEventManager(new Eventmanager());// Comment out if using test console -- WILL REMOVE ALL DATA
         start = new GuiViewer(); // New gui viewer
         start.setLayout(new BorderLayout()); // New gui viewer      
         controls = new GUIControl();//New gui control element
@@ -69,7 +70,7 @@ public class GuiViewer extends JFrame {
     }
 
     //JFrame-->mainPane-->eventList-->buttonPanel,view,textarea
-    public static void updateView() {//======================================
+    public static void updateView() {
         JPanel eventList = new JPanel(new GridLayout(0, 1));// List of events
         //eventList.setPreferredSize(new Dimension(450, 100));
         JPanel buttonPanel = new JPanel(new GridLayout(0, 1));// Panel for east side buttons
@@ -140,17 +141,18 @@ public class GuiViewer extends JFrame {
         SwingUtilities.updateComponentTreeUI(start); // uPDATE WINDOW
         //start.update(start.getGraphics());// ----Works but slow
 
-    }//-------------------------------------------------
+    }
 
     public static void viewEvent(Event event) {
-
-        JDialog addWindow = new JDialog(start, event.getTitle());
-        addWindow.setLayout(new BorderLayout());
+        // addWindow --> scrollPane --> firstPanel --> eventPanel,itemsPanel -->
+        // eventPanel-->listEvent
+        // itemsPanel-->buttonPanel,ItemPanel
+        viewEventWindow = new JDialog(start, event.getTitle());
+        viewEventWindow.setLayout(new BorderLayout());
         ScrollPane scrollPane = new ScrollPane();
-        addWindow.add(scrollPane);
+        viewEventWindow.add(scrollPane);
         JPanel firstPanel = new JPanel(new GridLayout(0, 1, 5, 5));
         JPanel itemsPanel = new JPanel(new GridLayout(0, 1, 5, 5));
-        //JPanel eventPanel = new JPanel(new GridLayout(0, 1, 5, 5));
         JPanel eventPanel = new JPanel(new BorderLayout());
         scrollPane.add(firstPanel);
         firstPanel.add(eventPanel);
@@ -163,41 +165,76 @@ public class GuiViewer extends JFrame {
                 if (e.getActionCommand().equals("Add Event Item")) {
                     System.out.println("Clicked add Event item");
                     GuiViewer.addItems(event);
+                    GuiViewer.updateView();
+                    // - TESTING --//
+                    //viewEventWindow.getOwner().dispose();
+                    System.out.println(viewEventWindow);
 
                 } else if (e.getActionCommand().equals("setOrganiser")) {
                     System.out.println("Clicked set organiser");
                     GuiViewer.editOrganiser(event);
+                } else if (e.getActionCommand().contains("editItem")) {
+                    int n = Integer.valueOf(e.getActionCommand().replace("editItem", ""));
+                    System.out.println("Clicked edit event item " + n);
+                    GuiViewer.editItems(event.getAgendaItem().get(n));
+                    //viewEventWindow.dispose();
+
+                    // GuiViewer.viewEvent(event);
+                } else if (e.getActionCommand().contains("deleteItem")) {
+                    int n = Integer.valueOf(e.getActionCommand().replace("deleteItem", ""));
+                    System.out.println("Clicked set delete event item " + n);
+                    event.getAgendaItem().remove(n);
+                    viewEventWindow.dispose();
+                    GuiViewer.viewEvent(event); // SUITABLE AS DELTETE IS INSTANT
+                    GuiViewer.updateView(); // SUITABLE AS DELTETE IS INSTANT
+
                 } else if (e.getActionCommand().equals("Cancel")) {
-                    addWindow.dispose();
+                    viewEventWindow.dispose();
                 }
             }
         };
-
+        // -- Add Event Item -- //
         JButton addItem = new JButton("Add Item");
         addItem.setActionCommand("Add Event Item");
         addItem.addActionListener(window);
-        addWindow.add(addItem, BorderLayout.NORTH);
-
+        viewEventWindow.add(addItem, BorderLayout.NORTH);
+        // -- Organiser setting -- //
         JButton setOrganiser = new JButton("Change/Set " + System.lineSeparator() + " Organiser");
         setOrganiser.setActionCommand("setOrganiser");
         setOrganiser.addActionListener(window);
 
 // -- EVENT DATA --//
         JTextArea text = new JTextArea(DataManager.listEvent(event));
+
         eventPanel.add(text, BorderLayout.CENTER);
         eventPanel.add(setOrganiser, BorderLayout.EAST);
 
         //--ITEM DATA--//
-        itemsPanel.add(new JTextArea("ITEM"));// TESTING
-        itemsPanel.add(new JTextArea("ITEM"));
-        itemsPanel.add(new JTextArea("ITEM"));
-        itemsPanel.add(new JTextArea("ITEM"));
-        itemsPanel.add(new JTextArea("ITEM"));
+        int in = 0; //item number
+
+        // - LOOP - //
+        for (Item item : event.getAgendaItem()) {
+            JPanel itemPanel = new JPanel(new BorderLayout());
+            JPanel buttonPanel = new JPanel(new GridLayout(2, 0, 5, 5));
+            itemsPanel.add(itemPanel);
+            JButton editItem = new JButton("Edit");
+            editItem.setActionCommand("editItem" + in);
+            editItem.addActionListener(window);
+            JButton deleteItem = new JButton("Delete");
+            deleteItem.setActionCommand("deleteItem" + in);
+            deleteItem.addActionListener(window);
+            buttonPanel.add(editItem);
+            buttonPanel.add(deleteItem);
+            itemPanel.add(buttonPanel, BorderLayout.EAST);
+            JTextArea itemText = new JTextArea(DataManager.listItem(item));
+            itemPanel.add(itemText);
+            in++;
+        }
 
         // -- SET TO LAST LINES -- //
-        addWindow.setSize(400, 400);
-        addWindow.setVisible(true);
-        addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        viewEventWindow.setSize(500, 500);
+        viewEventWindow.setVisible(true);
+        viewEventWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
 
     }
 
@@ -313,7 +350,8 @@ public class GuiViewer extends JFrame {
                 if (e.getActionCommand().equals("Save")) {
 
                     event.setOrganiser(new Organiser(name.getText()));
-
+                    viewEventWindow.dispose();  //ALSO WORKS
+                    GuiViewer.viewEvent(event);
                     GuiViewer.updateView();
                     addWindow.dispose();
                 } else if (e.getActionCommand().equals("Cancel")) {
@@ -354,7 +392,7 @@ public class GuiViewer extends JFrame {
      * @param object
      */
     public static void addItems(Object object) {
-        JDialog addWindow = new JDialog();
+        JDialog addWindow = new JDialog(start, "Adding item ");
         addWindow.setDefaultCloseOperation(HIDE_ON_CLOSE);
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         addWindow.add(form);
@@ -381,11 +419,15 @@ public class GuiViewer extends JFrame {
 
                         Event event = (Event) object;
                         event.addIAgendatemToEvent(new Item(ItemTitle.getText(), Time.getText()));
+                        // IMPLEMENT VIEW EVENT
 
+                        //addWindow.getOwner().getOwnedWindows()[0].dispose(); KIND OF WORKED
+                        viewEventWindow.dispose();  //ALSO WORKS
+                        GuiViewer.viewEvent((Event) object);
                     }
-
-                    GuiViewer.updateView();
                     addWindow.dispose();
+                    GuiViewer.updateView(); // Updates main window - boe both add event item and normal item
+                    //readd -----          //addWindow.dispose(); // closes the add item window once added
                 } else if (e.getActionCommand().equals("Cancel")) {
                     addWindow.dispose();
                 }
@@ -428,6 +470,16 @@ public class GuiViewer extends JFrame {
                     item.setItemStartTime(Time.getText());
                     GuiViewer.updateView();
                     editWindow.dispose();
+
+                    //IMPLEMENT EVENT UPDATE window
+                    for (Event event : DataManager.getEventManager().getEventList()) {
+                        if (event.getAgendaItem().contains(item)) {
+                            System.out.println("Foun the item through loop");
+                            viewEventWindow.dispose();  //ALSO WORKS
+                            GuiViewer.viewEvent(event);
+                        }
+                    }
+
                 } else if (e.getActionCommand().equals("Cancel")) {
                     editWindow.dispose();
                 }
