@@ -1,0 +1,32 @@
+@startuml
+annotation java.lang.Override
+class ci5105202122k2056101.eventmanager.control.GUIControl
+class ci5105202122k2056101.eventmanager.control.Main
+class ci5105202122k2056101.eventmanager.utils.DataManager
+class ci5105202122k2056101.eventmanager.view.GuiViewer
+class java.awt.BorderLayout
+class java.awt.Frame
+class java.awt.event.ActionEvent
+class java.io.File
+class java.time.LocalDate
+class java.time.LocalTime
+class java.time.Month
+class javax.swing.JButton
+class javax.swing.filechooser.FileNameExtensionFilter
+interface java.awt.event.ActionListener
+ci5105202122k2056101.eventmanager.control.GUIControl ..> java.lang.Override
+ci5105202122k2056101.eventmanager.control.GUIControl ..> ci5105202122k2056101.eventmanager.utils.DataManager
+ci5105202122k2056101.eventmanager.control.GUIControl ..> ci5105202122k2056101.eventmanager.view.GuiViewer
+ci5105202122k2056101.eventmanager.control.GUIControl ..> java.awt.Frame
+ci5105202122k2056101.eventmanager.control.GUIControl ..> java.awt.event.ActionEvent
+ci5105202122k2056101.eventmanager.control.GUIControl ..> java.io.File
+ci5105202122k2056101.eventmanager.control.GUIControl ..> javax.swing.filechooser.FileNameExtensionFilter
+ci5105202122k2056101.eventmanager.control.GUIControl --|> java.awt.event.ActionListener
+ci5105202122k2056101.eventmanager.control.Main ..> ci5105202122k2056101.eventmanager.utils.DataManager
+ci5105202122k2056101.eventmanager.control.Main ..> ci5105202122k2056101.eventmanager.view.GuiViewer
+ci5105202122k2056101.eventmanager.control.Main ..> java.awt.BorderLayout
+ci5105202122k2056101.eventmanager.control.Main ..> java.time.LocalDate
+ci5105202122k2056101.eventmanager.control.Main ..> java.time.LocalTime
+ci5105202122k2056101.eventmanager.control.Main ..> java.time.Month
+ci5105202122k2056101.eventmanager.control.Main ..> javax.swing.JButton
+@enduml

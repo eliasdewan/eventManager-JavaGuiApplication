@@ -149,6 +149,9 @@ public class GuiViewer extends JFrame {
         // addWindow --> scrollPane --> firstPanel --> eventPanel,itemsPanel -->
         // eventPanel-->listEvent
         // itemsPanel-->buttonPanel,ItemPanel
+        if (viewEventWindow != null) {
+            viewEventWindow.dispose(); // -- closing opened windows, needed to compensate design flaw
+        }
         viewEventWindow = new JDialog(start, event.getTitle());
         viewEventWindow.setLayout(new BorderLayout());
         ScrollPane scrollPane = new ScrollPane();
@@ -186,7 +189,7 @@ public class GuiViewer extends JFrame {
                     int n = Integer.valueOf(e.getActionCommand().replace("deleteItem", ""));
                     System.out.println("Clicked set delete event item " + n);
                     event.getAgendaItem().remove(n);
-                    viewEventWindow.dispose();
+                    //viewEventWindow.dispose(); //-- needed if not disposed in the following method
                     GuiViewer.viewEvent(event); // SUITABLE AS DELTETE IS INSTANT
                     GuiViewer.updateView(); // SUITABLE AS DELTETE IS INSTANT
 
@@ -390,7 +393,7 @@ public class GuiViewer extends JFrame {
                 if (e.getActionCommand().equals("Save")) {
 
                     event.setOrganiser(new Organiser(name.getText()));
-                    viewEventWindow.dispose();  //ALSO WORKS
+                    //viewEventWindow.dispose(); //-- needed if not disposed in the following method
                     GuiViewer.viewEvent(event);
                     GuiViewer.updateView();
                     addWindow.dispose();
@@ -473,7 +476,7 @@ public class GuiViewer extends JFrame {
                             // IMPLEMENT VIEW EVENT
 
                             //addWindow.getOwner().getOwnedWindows()[0].dispose(); KIND OF WORKED
-                            viewEventWindow.dispose();  //ALSO WORKS
+                            //viewEventWindow.dispose(); //-- needed if not disposed in the following method
                             GuiViewer.viewEvent((Event) object);
                         }
                         addWindow.dispose();
@@ -544,7 +547,7 @@ public class GuiViewer extends JFrame {
                         for (Event event : DataManager.getEventManager().getEventList()) {
                             if (event.getAgendaItem().contains(item)) {
                                 System.out.println("Foun the item through loop");
-                                viewEventWindow.dispose();  //ALSO WORKS
+                                //viewEventWindow.dispose(); //-- needed if not disposed in the following method
                                 GuiViewer.viewEvent(event);
                             }
                         }

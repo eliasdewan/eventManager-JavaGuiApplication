@@ -1,0 +1,43 @@
+@startuml
+annotation java.lang.Override
+class ci5105202122k2056101.eventmanager.control.GUIControl
+class ci5105202122k2056101.eventmanager.model.Event
+class ci5105202122k2056101.eventmanager.model.Eventmanager
+class ci5105202122k2056101.eventmanager.model.Item
+class ci5105202122k2056101.eventmanager.model.Organiser
+class ci5105202122k2056101.eventmanager.utils.DataManager
+class ci5105202122k2056101.eventmanager.view.GuiViewer
+class ci5105202122k2056101.eventmanager.view.JFrame
+class java.awt.BorderLayout
+class java.awt.Color
+class java.awt.Dimension
+class java.awt.GridBagLayout
+class java.awt.GridLayout
+class java.awt.ScrollPane
+class java.awt.event.ActionEvent
+class java.awt.event.ActionListener
+class java.time.LocalDate
+class java.time.LocalTime
+class java.time.format.DateTimeFormatter
+class java.time.format.DateTimeParseException
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.lang.Override
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.control.GUIControl
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.model.Event
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.model.Eventmanager
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.model.Item
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.model.Organiser
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> ci5105202122k2056101.eventmanager.utils.DataManager
+ci5105202122k2056101.eventmanager.view.GuiViewer --|> ci5105202122k2056101.eventmanager.view.JFrame
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.BorderLayout
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.Color
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.Dimension
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.GridBagLayout
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.GridLayout
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.ScrollPane
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.event.ActionEvent
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.awt.event.ActionListener
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.time.LocalDate
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.time.LocalTime
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.time.format.DateTimeFormatter
+ci5105202122k2056101.eventmanager.view.GuiViewer ..> java.time.format.DateTimeParseException
+@enduml
