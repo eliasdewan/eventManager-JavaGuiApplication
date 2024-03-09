@@ -1,5 +1,5 @@
-This project contains the EventManager Coursework as a NetBeans Project for K2056101
-Possible from extensive use of documentation of packages from docs.oracle.com/javase/8/docs/api/overview-summary.html
+Learning project about building GUI application
+Made possible from the very easy to follow and detailed documentation of packages from docs.oracle.com/javase/8/docs/api/overview-summary.html
 
 A Java swing application (GUI)
 In Model View Controller Format
